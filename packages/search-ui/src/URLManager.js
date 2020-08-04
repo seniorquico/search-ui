@@ -106,9 +106,10 @@ function stateToQueryString(state) {
  */
 
 export default class URLManager {
-  constructor() {
-    this.history = createHistory();
+  constructor({ history, pathname } = {}) {
+    this.history = history || createHistory();
     this.lastPushSearchString = "";
+    this.pathname = pathname;
   }
 
   /**
@@ -135,6 +136,7 @@ export default class URLManager {
       ? this.history.replace
       : this.history.push;
     navigationFunction({
+      pathname: this.pathname,
       search: `?${searchString}`
     });
   }

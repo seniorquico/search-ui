@@ -93,6 +93,8 @@ export default class SearchDriver {
     searchQuery = {},
     trackUrlState = true,
     urlPushDebounceLength = 500,
+    history,
+    pathname,
     hasA11yNotifications = false,
     a11yNotificationMessages = {},
     alwaysSearchOnInitialLoad = false
@@ -135,7 +137,7 @@ export default class SearchDriver {
 
     let urlState;
     if (trackUrlState) {
-      this.URLManager = new URLManager();
+      this.URLManager = new URLManager({ history, pathname });
       urlState = this.URLManager.getStateFromURL();
       this.URLManager.onURLStateChange(urlState => {
         this._updateSearchResults(
